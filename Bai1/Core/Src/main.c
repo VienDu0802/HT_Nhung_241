@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2024 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2023 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -19,10 +19,14 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "spi.h"
+#include "tim.h"
+#include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "software_timer.h"
+#include "led_7seg.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -47,9 +51,12 @@
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-static void MX_GPIO_Init(void);
 /* USER CODE BEGIN PFP */
-
+void system_init();
+void test_LedDebug();
+void test_LedY0();
+void test_LedY1();
+void test_7seg();
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -85,19 +92,26 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_TIM2_Init();
+  MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
-
+  system_init();
+  led7_SetColon(1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  while(!flag_timer2);
+	  flag_timer2 = 0;
+	  // main task, every 50ms
+	  test_LedDebug();
+	  test_LedY0();
+	  test_LedY1();
+	  test_7seg();
     /* USER CODE END WHILE */
-	  HAL_GPIO_WritePin ( DEBUG_LED_GPIO_Port , DEBUG_LED_Pin , 1);
-	  HAL_Delay (2000) ;
-	  HAL_GPIO_WritePin ( DEBUG_LED_GPIO_Port , DEBUG_LED_Pin , 0);
-	  HAL_Delay (4000) ;
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -147,34 +161,52 @@ void SystemClock_Config(void)
   }
 }
 
-/**
-  * @brief GPIO Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_GPIO_Init(void)
-{
-  GPIO_InitTypeDef GPIO_InitStruct = {0};
-
-  /* GPIO Ports Clock Enable */
-  __HAL_RCC_GPIOE_CLK_ENABLE();
-  __HAL_RCC_GPIOH_CLK_ENABLE();
-  __HAL_RCC_GPIOA_CLK_ENABLE();
-
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOE, DEBUG_LED_Pin|OUTPUT_Y0_Pin|OUTPUT_Y1_Pin, GPIO_PIN_RESET);
-
-  /*Configure GPIO pins : DEBUG_LED_Pin OUTPUT_Y0_Pin OUTPUT_Y1_Pin */
-  GPIO_InitStruct.Pin = DEBUG_LED_Pin|OUTPUT_Y0_Pin|OUTPUT_Y1_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
-
+/* USER CODE BEGIN 4 */
+void system_init(){
+	  HAL_GPIO_WritePin(OUTPUT_Y0_GPIO_Port, OUTPUT_Y0_Pin, 0);
+	  HAL_GPIO_WritePin(OUTPUT_Y1_GPIO_Port, OUTPUT_Y1_Pin, 0);
+	  HAL_GPIO_WritePin(DEBUG_LED_GPIO_Port, DEBUG_LED_Pin, 0);
+	  timer_init();
+	  led7_init();
+	  setTimer2(50);
 }
 
-/* USER CODE BEGIN 4 */
+uint8_t count_led_debug = 0;
+uint8_t count_led_Y0 = 0;
+uint8_t count_led_Y1 = 0;
 
+void test_LedDebug(){
+	count_led_debug = (count_led_debug + 1)%20;
+	if(count_led_debug == 0){
+		HAL_GPIO_TogglePin(DEBUG_LED_GPIO_Port, DEBUG_LED_Pin);
+	}
+}
+
+void test_LedY0(){
+	count_led_Y0 = (count_led_Y0+ 1)%100;
+	if(count_led_Y0 > 40){
+		HAL_GPIO_WritePin(OUTPUT_Y0_GPIO_Port, OUTPUT_Y0_Pin, 1);
+	} else {
+		HAL_GPIO_WritePin(OUTPUT_Y0_GPIO_Port, OUTPUT_Y0_Pin, 0);
+	}
+}
+
+void test_LedY1(){
+	count_led_Y1 = (count_led_Y1+ 1)%40;
+	if(count_led_Y1 > 10){
+		HAL_GPIO_WritePin(OUTPUT_Y1_GPIO_Port, OUTPUT_Y1_Pin, 0);
+	} else {
+		HAL_GPIO_WritePin(OUTPUT_Y0_GPIO_Port, OUTPUT_Y1_Pin, 1);
+	}
+}
+
+void test_7seg(){
+	//write number1 at led index 0 (not show dot)
+	led7_SetDigit(1, 0, 0);
+	led7_SetDigit(5, 1, 0);
+	led7_SetDigit(4, 2, 0);
+	led7_SetDigit(7, 3, 0);
+}
 /* USER CODE END 4 */
 
 /**

@@ -7,7 +7,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2024 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2023 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -64,6 +64,18 @@ void Error_Handler(void);
 #define OUTPUT_Y0_GPIO_Port GPIOE
 #define OUTPUT_Y1_Pin GPIO_PIN_6
 #define OUTPUT_Y1_GPIO_Port GPIOE
+#define INPUT_X0_Pin GPIO_PIN_6
+#define INPUT_X0_GPIO_Port GPIOA
+#define INPUT_X1_Pin GPIO_PIN_7
+#define INPUT_X1_GPIO_Port GPIOA
+#define INPUT_X2_Pin GPIO_PIN_4
+#define INPUT_X2_GPIO_Port GPIOC
+#define INPUT_X3_Pin GPIO_PIN_5
+#define INPUT_X3_GPIO_Port GPIOC
+#define LD_LATCH_Pin GPIO_PIN_6
+#define LD_LATCH_GPIO_Port GPIOG
+#define BTN_LOAD_Pin GPIO_PIN_3
+#define BTN_LOAD_GPIO_Port GPIOD
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
