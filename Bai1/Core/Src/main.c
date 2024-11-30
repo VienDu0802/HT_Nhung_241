@@ -176,28 +176,58 @@ uint8_t count_led_Y0 = 0;
 uint8_t count_led_Y1 = 0;
 
 void test_LedDebug(){
-	count_led_debug = (count_led_debug + 1)%20;
-	if(count_led_debug == 0){
-		HAL_GPIO_TogglePin(DEBUG_LED_GPIO_Port, DEBUG_LED_Pin);
-	}
+//	count_led_debug = (count_led_debug + 1)%20;
+//	if(count_led_debug == 0){
+//		HAL_GPIO_TogglePin(DEBUG_LED_GPIO_Port, DEBUG_LED_Pin);
+//	}
+
+	count_led_debug += 50;
+	    if (count_led_debug >= 2000) {
+	    	count_led_debug = 0;
+	        HAL_GPIO_TogglePin(DEBUG_LED_GPIO_Port, DEBUG_LED_Pin);
+	    }
 }
 
 void test_LedY0(){
-	count_led_Y0 = (count_led_Y0+ 1)%100;
-	if(count_led_Y0 > 40){
+//	count_led_Y0 = (count_led_Y0+ 1)%100;
+//	if(count_led_Y0 > 40){
+//		HAL_GPIO_WritePin(OUTPUT_Y0_GPIO_Port, OUTPUT_Y0_Pin, 1);
+//	} else {
+//		HAL_GPIO_WritePin(OUTPUT_Y0_GPIO_Port, OUTPUT_Y0_Pin, 0);
+//	}
+
+	count_led_Y0 += 50;
+	if (count_led_Y0 < 2000) {
 		HAL_GPIO_WritePin(OUTPUT_Y0_GPIO_Port, OUTPUT_Y0_Pin, 1);
-	} else {
+	} else if (count_led_Y0 >= 2000 && count_led_Y0 < 6000) {
 		HAL_GPIO_WritePin(OUTPUT_Y0_GPIO_Port, OUTPUT_Y0_Pin, 0);
+	}
+
+
+	if (count_led_Y0 >= 6000) {
+		count_led_Y0 = 0;
 	}
 }
 
 void test_LedY1(){
-	count_led_Y1 = (count_led_Y1+ 1)%40;
-	if(count_led_Y1 > 10){
-		HAL_GPIO_WritePin(OUTPUT_Y1_GPIO_Port, OUTPUT_Y1_Pin, 0);
-	} else {
-		HAL_GPIO_WritePin(OUTPUT_Y0_GPIO_Port, OUTPUT_Y1_Pin, 1);
-	}
+//	count_led_Y1 = (count_led_Y1+ 1)%40;
+//	if(count_led_Y1 > 10){
+//		HAL_GPIO_WritePin(OUTPUT_Y1_GPIO_Port, OUTPUT_Y1_Pin, 0);
+//	} else {
+//		HAL_GPIO_WritePin(OUTPUT_Y0_GPIO_Port, OUTPUT_Y1_Pin, 1);
+//	}
+
+	count_led_Y1 += 50;
+	    if (count_led_Y1 < 5000) {  // 5s sáng
+	        HAL_GPIO_WritePin(OUTPUT_Y1_GPIO_Port, OUTPUT_Y1_Pin, 1);
+	    } else if (count_led_Y1 >= 5000 && count_led_Y1 < 6000) {  // 1s tắt
+	        HAL_GPIO_WritePin(OUTPUT_Y1_GPIO_Port, OUTPUT_Y1_Pin, 0);
+	    }
+
+
+	    if (count_led_Y1 >= 6000) {
+	        count_led_Y1 = 0;
+	    }
 }
 
 void test_7seg(){

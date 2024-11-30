@@ -1,4 +1,4 @@
-Core/Src/LED7_seg.o: ../Core/Src/LED7_seg.c ../Core/Inc/LED7_seg.h \
+Core/Src/led_7seg.o: ../Core/Src/led_7seg.c ../Core/Inc/led_7seg.h \
  ../Core/Inc/spi.h ../Core/Inc/main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
@@ -29,7 +29,7 @@ Core/Src/LED7_seg.o: ../Core/Src/LED7_seg.c ../Core/Inc/LED7_seg.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 
-../Core/Inc/LED7_seg.h:
+../Core/Inc/led_7seg.h:
 
 ../Core/Inc/spi.h:
 
