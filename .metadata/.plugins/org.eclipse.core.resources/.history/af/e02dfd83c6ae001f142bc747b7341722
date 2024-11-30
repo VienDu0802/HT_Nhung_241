@@ -94,23 +94,10 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-	  static uint32_t delayTime = 0;
-
-	      if (delayTime < 2000)
-	      {
-	          HAL_GPIO_WritePin(DEBUG_LED_GPIO_Port, DEBUG_LED_Pin, GPIO_PIN_SET);
-	      }
-	      else if (delayTime < 6000)
-	      {
-	          HAL_GPIO_WritePin(DEBUG_LED_GPIO_Port, DEBUG_LED_Pin, GPIO_PIN_RESET);
-	      }
-	      else
-	      {
-	          delayTime = 0;
-	      }
-
-	      delayTime++;
-	      HAL_Delay(1);
+	  HAL_GPIO_WritePin ( DEBUG_LED_GPIO_Port , DEBUG_LED_Pin , 1);
+	  HAL_Delay (2000) ;
+	  HAL_GPIO_WritePin ( DEBUG_LED_GPIO_Port , DEBUG_LED_Pin , 0);
+	  HAL_Delay (4000) ;
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */

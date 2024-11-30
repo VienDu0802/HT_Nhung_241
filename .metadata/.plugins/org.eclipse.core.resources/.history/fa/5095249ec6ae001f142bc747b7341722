@@ -100,7 +100,7 @@ int main(void)
 	      {
 	          HAL_GPIO_WritePin(DEBUG_LED_GPIO_Port, DEBUG_LED_Pin, GPIO_PIN_SET);
 	      }
-	      else if (delayTime < 6000)
+	      else if (delayTime < 6000)  // Nếu từ 2 đến 6 giây
 	      {
 	          HAL_GPIO_WritePin(DEBUG_LED_GPIO_Port, DEBUG_LED_Pin, GPIO_PIN_RESET);
 	      }
