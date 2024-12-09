@@ -105,7 +105,7 @@ int main(void)
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
   system_init();
-  enum traffic_led_state current_state = LED_RED;
+  enum traffic_led_state currState = LED_RED;
 
   /* USER CODE END 2 */
 
@@ -116,26 +116,26 @@ int main(void)
 	  HAL_GPIO_WritePin(DEBUG_LED_GPIO_Port, DEBUG_LED_Pin, 0);
 	  HAL_GPIO_WritePin(OUTPUT_Y0_GPIO_Port, OUTPUT_Y0_Pin, 0);
 	  HAL_GPIO_WritePin(OUTPUT_Y1_GPIO_Port, OUTPUT_Y1_Pin, 0);
-	  switch(current_state){
+	  switch(currState){
 	  case LED_RED:
 		  HAL_GPIO_WritePin(DEBUG_LED_GPIO_Port, DEBUG_LED_Pin, 1);
 		  if(timer2_flag){
 			  setTimer2(3000);
-			  current_state = LED_GREEN;
+			  currState = LED_GREEN;
 		  }
 		  break;
 	  case LED_GREEN:
 		  HAL_GPIO_WritePin(OUTPUT_Y0_GPIO_Port, OUTPUT_Y0_Pin, 1);
 		  if(timer2_flag){
 			  setTimer2(1000);
-			  current_state = LED_YELLOW;
+			  currState = LED_YELLOW;
 		  }
 		  break;
 	  case LED_YELLOW:
 		  HAL_GPIO_WritePin(OUTPUT_Y1_GPIO_Port, OUTPUT_Y1_Pin, 1);
 		  if(timer2_flag){
 			  setTimer2(5000);
-			  current_state = LED_RED;
+			  currState = LED_RED;
 		  }
 		  break;
 	  }
