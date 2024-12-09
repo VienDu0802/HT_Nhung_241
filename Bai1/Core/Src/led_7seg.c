@@ -1,9 +1,3 @@
-/*
- * led_7seg.c
- *
- *  Created on: Sep 25, 2023
- *      Author: HaHuyen
- */
 #include <led_7seg.h>
 
 uint8_t led7seg[4] = {0, 1, 2, 3}; //4 index
