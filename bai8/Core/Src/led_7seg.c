@@ -1,9 +1,3 @@
-/*
- * led_7seg.c
- *
- *  Created on: Nov 11, 2024
- *      Author: hoang
- */
 #include "led_7seg.h"
 #include "spi.h"
 
