@@ -1,10 +1,3 @@
-/*
- * gpio.h
- *
- *  Created on: Nov 11, 2024
- *      Author: hoang
- */
-
 #ifndef INC_GPIO_H_
 #define INC_GPIO_H_
 
