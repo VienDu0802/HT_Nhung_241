@@ -1,10 +1,3 @@
-/*
- * led_7seg.h
- *
- *  Created on: Sep 25, 2023
- *      Author: HaHuyen
- */
-
 #ifndef INC_LED7SEG_H_
 #define INC_LED7SEG_H_
 
