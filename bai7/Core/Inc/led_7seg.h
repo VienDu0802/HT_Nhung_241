@@ -1,10 +1,3 @@
-/*
- * led_7seg.h
- *
- *  Created on: Nov 11, 2024
- *      Author: hoang
- */
-
 #ifndef INC_LED_7SEG_H_
 #define INC_LED_7SEG_H_
 
