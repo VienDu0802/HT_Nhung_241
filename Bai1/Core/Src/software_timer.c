@@ -1,10 +1,3 @@
-/*
- * software_timer.c
- *
- *  Created on: Sep 24, 2023
- *      Author: HaHuyen
- */
-
 #include "software_timer.h"
 
 #define TIMER_CYCLE_2 1
