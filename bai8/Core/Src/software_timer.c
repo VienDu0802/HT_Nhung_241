@@ -1,9 +1,3 @@
-/*
- * software_timer.c
- *
- *  Created on: Nov 11, 2024
- *      Author: hoang
- */
 #include "software_timer.h"
 
 #include "led_7seg.h"
